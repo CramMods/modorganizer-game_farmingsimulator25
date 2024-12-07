@@ -30,7 +30,7 @@ class GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("0.1.0")
+        return VersionInfo("1.0.0")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25. Requires installer_giants."
