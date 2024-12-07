@@ -1,0 +1,9 @@
+# Python
+.venv/
+.ruff_cache/
+
+# Visual Studio Code
+.vscode/
+
+# Generated
+build/
