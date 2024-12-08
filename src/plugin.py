@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from PyQt6.QtCore import QDir, QStandardPaths
 from PyQt6.QtGui import QIcon
 
@@ -63,14 +61,14 @@ class GamePlugin(IPluginGame):
         self._gamePath = path
 
     def dataDirectory(self) -> QDir:
-        docsPath = Path(
+        docsDir = QDir(
             QStandardPaths.writableLocation(
                 QStandardPaths.StandardLocation.DocumentsLocation
             )
         )
-        dataPath = docsPath.joinpath("My Games/FarmingSimulator2025")
-        modsPath = dataPath.joinpath("mods")
-        return QDir(str(modsPath))
+        dataDir = QDir(docsDir.absoluteFilePath("My Games/FarmingSimulator2025"))
+        modsDir = QDir(dataDir.absoluteFilePath("mods"))
+        return modsDir
 
     def documentsDirectory(self) -> QDir:
         return QDir()
@@ -82,9 +80,7 @@ class GamePlugin(IPluginGame):
         return "FarmingSimulator2025.exe"
 
     def binaryPath(self) -> str:
-        return str(
-            Path(self.gameDirectory().absolutePath()).joinpath(self.binaryName())
-        )
+        return self.gameDirectory().absoluteFilePath(self.binaryName())
 
     def gameIcon(self) -> QIcon:
         return getIconForExecutable(self.binaryPath())
@@ -103,7 +99,7 @@ class GamePlugin(IPluginGame):
         execs.append(
             ExecutableInfo(
                 self.gameName(),
-                self.gameDirectory().absoluteFilePath(self.binaryName()),
+                self.binaryPath(),
             )
         )
         execs.append(
