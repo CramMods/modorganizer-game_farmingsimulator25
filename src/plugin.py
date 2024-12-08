@@ -37,7 +37,7 @@ class FS25GamePlugin(IPluginGame):
         return VersionInfo("1.0.0")
 
     def description(self) -> str:
-        return "Game support for Farming Simulator 25. Requires installer_giants."
+        return "Game support for Farming Simulator 25."
 
     def settings(self) -> list[PluginSetting]:
         return []
