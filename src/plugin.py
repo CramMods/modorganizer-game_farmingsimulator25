@@ -14,6 +14,8 @@ from mobase import (
     getIconForExecutable,
 )
 
+from .moddatachecker import FS25ModDataChecker
+
 
 class FS25GamePlugin(IPluginGame):
     _gamePath: str = ""
@@ -42,6 +44,9 @@ class FS25GamePlugin(IPluginGame):
 
     def init(self, organizer: IOrganizer) -> bool:
         self._organizer = organizer
+        self._organizer.gameFeatures().registerFeature(
+            self, FS25ModDataChecker(), 0, True
+        )
         return True
 
     # IPluginGame Implementation
