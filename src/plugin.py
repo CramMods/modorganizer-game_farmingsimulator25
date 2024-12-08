@@ -15,7 +15,7 @@ from mobase import (
 )
 
 
-class GamePlugin(IPluginGame):
+class FS25GamePlugin(IPluginGame):
     _gamePath: str = ""
     _organizer: IOrganizer
 
@@ -23,6 +23,10 @@ class GamePlugin(IPluginGame):
 
     def name(self) -> str:
         return "Farming Simulator 25 Support"
+
+    def localizedName(self) -> str:
+        # TODO: Translation stuff
+        return self.name()
 
     def author(self) -> str:
         return "Cram42"
@@ -46,13 +50,13 @@ class GamePlugin(IPluginGame):
         return "Farming Simulator 25"
 
     def gameShortName(self) -> str:
-        return "farm25"
+        return "farmingsimulator25"
 
     def validShortNames(self) -> list[str]:
-        return []
+        return ["FS25"]
 
     def nexusGameID(self) -> int:
-        return 0
+        return 7052
 
     def gameDirectory(self) -> QDir:
         return QDir(self._gamePath)
@@ -61,26 +65,16 @@ class GamePlugin(IPluginGame):
         self._gamePath = path
 
     def dataDirectory(self) -> QDir:
-        docsDir = QDir(
-            QStandardPaths.writableLocation(
-                QStandardPaths.StandardLocation.DocumentsLocation
-            )
-        )
-        dataDir = QDir(docsDir.absoluteFilePath("My Games/FarmingSimulator2025"))
-        modsDir = QDir(dataDir.absoluteFilePath("mods"))
-        return modsDir
+        return QDir(self.dataRootDirectory().absoluteFilePath("mods"))
 
     def documentsDirectory(self) -> QDir:
-        return QDir()
+        return self.dataRootDirectory()
 
     def savesDirectory(self) -> QDir:
-        return QDir()
+        return self.dataRootDirectory()
 
     def binaryName(self) -> str:
         return "FarmingSimulator2025.exe"
-
-    def binaryPath(self) -> str:
-        return self.gameDirectory().absoluteFilePath(self.binaryName())
 
     def gameIcon(self) -> QIcon:
         return getIconForExecutable(self.binaryPath())
@@ -108,20 +102,13 @@ class GamePlugin(IPluginGame):
                 self.gameDirectory().absoluteFilePath("dedicatedServer.exe"),
             )
         )
-        if self.gameDirectory().exists("Run_FarmingSimulator25.exe"):
-            execs.append(
-                ExecutableInfo(
-                    "Launcher",
-                    self.gameDirectory().absoluteFilePath("Run_FarmingSimulator25.exe"),
-                )
-            )
         return execs
 
     def executableForcedLoads(self) -> list[ExecutableForcedLoadSetting]:
         return []
 
     def getSupportURL(self) -> str:
-        return ""
+        return "https://www.farming-simulator.com/"
 
     def detectGame(self) -> None:
         pass
@@ -137,3 +124,16 @@ class GamePlugin(IPluginGame):
 
     def setGameVariant(self, variant: str) -> None:
         pass
+
+    # Extra
+
+    def binaryPath(self) -> str:
+        return self.gameDirectory().absoluteFilePath(self.binaryName())
+
+    def dataRootDirectory(self) -> QDir:
+        docsDir = QDir(
+            QStandardPaths.writableLocation(
+                QStandardPaths.StandardLocation.DocumentsLocation
+            )
+        )
+        return QDir(docsDir.absoluteFilePath("My Games/FarmingSimulator2025"))

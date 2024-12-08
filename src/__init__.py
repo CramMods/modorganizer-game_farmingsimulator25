@@ -1,7 +1,7 @@
 from mobase import IPlugin
 
-from .plugin import GamePlugin
+from .plugin import FS25GamePlugin
 
 
 def createPlugin() -> IPlugin:
-    return GamePlugin()
+    return FS25GamePlugin()
