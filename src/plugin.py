@@ -43,7 +43,7 @@ class FS25GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("1.4.0")
+        return VersionInfo("1.4.1")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25."
@@ -55,6 +55,7 @@ class FS25GamePlugin(IPluginGame):
         self._organizer = organizer
         organizer.gameFeatures().registerFeature(self, FS25ModDataChecker(), 0, True)
         organizer.gameFeatures().registerFeature(self, FS25ModDataContent(), 0, True)
+        organizer.onAboutToRun(self._onAboutToRun)
         return True
 
     # IPluginGame Implementation
@@ -157,3 +158,8 @@ class FS25GamePlugin(IPluginGame):
             )
         )
         return QDir(docsDir.absoluteFilePath("My Games/FarmingSimulator2025"))
+
+    def _onAboutToRun(self, exePath: str, workingDir: QDir, args: str) -> bool:
+        if not self.dataDirectory().exists():
+            self.dataDirectory().mkpath(".")
+        return True
