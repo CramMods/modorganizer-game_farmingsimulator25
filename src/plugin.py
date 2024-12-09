@@ -14,6 +14,7 @@ from mobase import (
     getIconForExecutable,
 )
 
+from .gamedetector import IGameDetector, SteamGameDetector
 from .moddatachecker import FS25ModDataChecker
 from .moddatacontent import FS25ModDataContent
 
@@ -21,6 +22,9 @@ from .moddatacontent import FS25ModDataContent
 class FS25GamePlugin(IPluginGame):
     _gamePath: str = ""
     _organizer: IOrganizer
+    _gameDetectors: list[IGameDetector] = [
+        SteamGameDetector(),
+    ]
 
     # IPlugin Implementation
 
@@ -120,7 +124,11 @@ class FS25GamePlugin(IPluginGame):
         return "https://www.farming-simulator.com/"
 
     def detectGame(self) -> None:
-        pass
+        for detector in self._gameDetectors:
+            path = detector.detect()
+            if path is not None:
+                self.setGamePath(path)
+                break
 
     def looksValid(self, directory: QDir) -> bool:
         return directory.exists(self.binaryName())

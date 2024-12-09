@@ -1386,6 +1386,17 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "vdf"
+version = "3.4"
+description = "Library for working with Valve's VDF text format"
+optional = false
+python-versions = "*"
+files = [
+    {file = "vdf-3.4-py2.py3-none-any.whl", hash = "sha256:68c1a125cc49e343d535af2dd25074e9cb0908c6607f073947c4a04bbe234534"},
+    {file = "vdf-3.4.tar.gz", hash = "sha256:fd5419f41e07a1009e5ffd027c7dcbe43d1f7e8ef453aeaa90d9d04b807de2af"},
+]
+
+[[package]]
 name = "virtualenv"
 version = "20.28.0"
 description = "Virtual Python Environment builder"
@@ -1481,4 +1492,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "d68f35853825fc03f84ee2434961a8f9611076f6e7982edeacf815d6e1ae5f69"
+content-hash = "0b43e1247a75ccce524e6175b3c456fd5c974913a3cfce8d172796e769a549d2"

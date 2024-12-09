@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 pyqt6 = "^6.7.1"
+vdf = "^3.4"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.8.2"
@@ -53,7 +54,7 @@ section-order = [
 [tool.pyright]
 include = ["src"]
 typeCheckingMode = "strict"
-reportMissingTypeStubs = true
+reportMissingTypeStubs = false
 reportMissingModuleSource = false
 pythonPlatform = "Windows"
 
