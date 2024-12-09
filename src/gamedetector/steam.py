@@ -41,7 +41,10 @@ class AppManifest:
         return self._data["AppState"]["name"]
 
     def installPath(self) -> Path:
-        return self._path.parent.joinpath(self._data["AppState"]["installdir"])
+        return self._path.parent.joinpath(
+            "common",
+            self._data["AppState"]["installdir"],
+        )
 
 
 class LibraryFolders:
