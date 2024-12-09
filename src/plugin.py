@@ -24,6 +24,12 @@ class FS25GamePlugin(IPluginGame):
     _organizer: IOrganizer
     _gameDetectors: list[IGameDetector]
 
+    def __init__(self):
+        super().__init__()
+        self._gameDetectors = [
+            SteamGameDetector(int(self.steamAPPId())),
+        ]
+
     # IPlugin Implementation
 
     def name(self) -> str:
@@ -37,7 +43,7 @@ class FS25GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("1.3.2")
+        return VersionInfo("1.4.0")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25."
@@ -46,9 +52,6 @@ class FS25GamePlugin(IPluginGame):
         return []
 
     def init(self, organizer: IOrganizer) -> bool:
-        self._gameDetectors = [
-            SteamGameDetector(int(self.steamAPPId())),
-        ]
         self._organizer = organizer
         organizer.gameFeatures().registerFeature(self, FS25ModDataChecker(), 0, True)
         organizer.gameFeatures().registerFeature(self, FS25ModDataContent(), 0, True)
