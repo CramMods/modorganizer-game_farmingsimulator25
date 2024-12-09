@@ -15,6 +15,7 @@ from mobase import (
 )
 
 from .moddatachecker import FS25ModDataChecker
+from .moddatacontent import FS25ModDataContent
 
 
 class FS25GamePlugin(IPluginGame):
@@ -46,6 +47,9 @@ class FS25GamePlugin(IPluginGame):
         self._organizer = organizer
         self._organizer.gameFeatures().registerFeature(
             self, FS25ModDataChecker(), 0, True
+        )
+        self._organizer.gameFeatures().registerFeature(
+            self, FS25ModDataContent(), 0, True
         )
         return True
 
