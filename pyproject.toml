@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "game_farmingsimulator2025"
-version = "1.2.0"
+version = "1.3.0"
 description = ""
 authors = ["Grant Le Roux <cram42@users.noreply.github.com>"]
 license = "GPL-3.0-or-later"
