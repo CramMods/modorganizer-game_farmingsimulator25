@@ -20,7 +20,7 @@ from .moddatacontent import FS25ModDataContent
 
 
 class FS25GamePlugin(IPluginGame):
-    _gamePath: str = ""
+    _gamePath: str
     _organizer: IOrganizer
     _gameDetectors: list[IGameDetector]
 
@@ -50,12 +50,8 @@ class FS25GamePlugin(IPluginGame):
             SteamGameDetector(int(self.steamAPPId())),
         ]
         self._organizer = organizer
-        self._organizer.gameFeatures().registerFeature(
-            self, FS25ModDataChecker(), 0, True
-        )
-        self._organizer.gameFeatures().registerFeature(
-            self, FS25ModDataContent(), 0, True
-        )
+        organizer.gameFeatures().registerFeature(self, FS25ModDataChecker(), 0, True)
+        organizer.gameFeatures().registerFeature(self, FS25ModDataContent(), 0, True)
         return True
 
     # IPluginGame Implementation
