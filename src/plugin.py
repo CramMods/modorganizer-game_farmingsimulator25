@@ -39,7 +39,7 @@ class FS25GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("1.3.0")
+        return VersionInfo("1.3.1")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25."
@@ -121,7 +121,7 @@ class FS25GamePlugin(IPluginGame):
         return []
 
     def getSupportURL(self) -> str:
-        return "https://www.farming-simulator.com/"
+        return "https://forum.giants-software.com/viewforum.php?f=1008"
 
     def detectGame(self) -> None:
         for detector in self._gameDetectors:
