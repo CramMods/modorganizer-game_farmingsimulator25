@@ -59,11 +59,15 @@ class LibraryFolders:
 
 
 class SteamGameDetector(IGameDetector):
-    APPID: int = 2300320
+    _appId: int
+
+    def __init__(self, appId: int) -> None:
+        super().__init__()
+        self._appId = appId
 
     def detect(self) -> str | None:
         for app in self.getSteamApps():
-            if app.id() == self.APPID:
+            if app.id() == self._appId:
                 return str(app.installPath().absolute())
         return None
 

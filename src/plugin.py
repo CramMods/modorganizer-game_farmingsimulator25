@@ -22,9 +22,7 @@ from .moddatacontent import FS25ModDataContent
 class FS25GamePlugin(IPluginGame):
     _gamePath: str = ""
     _organizer: IOrganizer
-    _gameDetectors: list[IGameDetector] = [
-        SteamGameDetector(),
-    ]
+    _gameDetectors: list[IGameDetector]
 
     # IPlugin Implementation
 
@@ -39,7 +37,7 @@ class FS25GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("1.3.1")
+        return VersionInfo("1.3.2")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25."
@@ -48,6 +46,9 @@ class FS25GamePlugin(IPluginGame):
         return []
 
     def init(self, organizer: IOrganizer) -> bool:
+        self._gameDetectors = [
+            SteamGameDetector(int(self.steamAPPId())),
+        ]
         self._organizer = organizer
         self._organizer.gameFeatures().registerFeature(
             self, FS25ModDataChecker(), 0, True
@@ -94,6 +95,9 @@ class FS25GamePlugin(IPluginGame):
 
     def gameVersion(self) -> str:
         return getFileVersion(self.binaryPath())
+
+    def steamAPPId(self) -> str:
+        return "2300320"
 
     def isInstalled(self) -> bool:
         return bool(self._gamePath)
