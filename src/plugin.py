@@ -35,7 +35,7 @@ class FS25GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("1.1.0")
+        return VersionInfo("1.2.0")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25."
