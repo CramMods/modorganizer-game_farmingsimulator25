@@ -112,6 +112,9 @@ class FS25GamePlugin(IPluginGame):
                 self.binaryPath(),
             ),
             ExecutableInfo(
+                "{} (Skip Videos)".format(self.gameName()), self.binaryPath()
+            ).withArgument("-skipStartVideos"),
+            ExecutableInfo(
                 "Dedicated Server",
                 self.gameDirectory().absoluteFilePath("dedicatedServer.exe"),
             ),
