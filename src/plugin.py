@@ -1,3 +1,5 @@
+import re
+
 from PyQt6.QtCore import QDir, QStandardPaths
 from PyQt6.QtGui import QIcon
 
@@ -17,6 +19,7 @@ from mobase import (
 from .gamedetector import IGameDetector, SteamGameDetector
 from .moddatachecker import FS25ModDataChecker
 from .moddatacontent import FS25ModDataContent
+from .savegame import FS25SaveGame
 
 
 class FS25GamePlugin(IPluginGame):
@@ -43,7 +46,7 @@ class FS25GamePlugin(IPluginGame):
         return "Cram42"
 
     def version(self) -> VersionInfo:
-        return VersionInfo("1.4.1")
+        return VersionInfo("1.5.0")
 
     def description(self) -> str:
         return "Game support for Farming Simulator 25."
@@ -140,7 +143,12 @@ class FS25GamePlugin(IPluginGame):
         pass
 
     def listSaves(self, folder: QDir) -> list[ISaveGame]:
-        return []
+        saves: list[ISaveGame] = []
+        for dirName in folder.entryList(QDir.Filter.Dirs):
+            if re.match(r"savegame\d+", dirName):
+                save = FS25SaveGame(folder.absoluteFilePath(dirName))
+                saves.append(save)
+        return saves
 
     def setGameVariant(self, variant: str) -> None:
         pass
