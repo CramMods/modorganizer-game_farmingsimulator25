@@ -106,20 +106,16 @@ class FS25GamePlugin(IPluginGame):
         return ""
 
     def executables(self) -> list[ExecutableInfo]:
-        execs: list[ExecutableInfo] = []
-        execs.append(
+        return [
             ExecutableInfo(
                 self.gameName(),
                 self.binaryPath(),
-            )
-        )
-        execs.append(
+            ),
             ExecutableInfo(
                 "Dedicated Server",
                 self.gameDirectory().absoluteFilePath("dedicatedServer.exe"),
-            )
-        )
-        return execs
+            ),
+        ]
 
     def executableForcedLoads(self) -> list[ExecutableForcedLoadSetting]:
         return []
